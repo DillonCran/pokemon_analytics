@@ -1,42 +1,43 @@
 # script to pull pokemon data into a database
 
+# imports
+from config import *
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
+# Thank god theres a library for this
+from pokemontcgsdk import Card
+from pokemontcgsdk import Set
+from pokemontcgsdk import Type
+from pokemontcgsdk import Supertype
+from pokemontcgsdk import Subtype
+from pokemontcgsdk import Rarity
+from pokemontcgsdk import RestClient # pokemonTCG api tookin
 
-pkmn_df_data = pd.read_csv('pokemon_analytics\data\pokemon_data_1223.csv')
-pkmn_df = pd.DataFrame(pkmn_df_data)
-
-print(pkmn_df.head(1).columns['name'])
-
-
-# func to sort data by pokemon name
-def get_pkmn_data(df):
-    pkmn_name = input("Enter a pokemon name: ")
-    pkmn_data = df.loc[df['Name'] == pkmn_name]
-    print(pkmn_data)
-    return pkmn_data
-    
-
-# file interface
-running = True
-
-    
-
-
-
-
-
-
+# find card by id
+card = Card.find('xy1-1')
+# find card by parameters
+cards = Card.where(q='set.name:generations supertype:pokemon')
+# find all cards
+cards = Card.all()
+# Get all cards, but only a specific page of data
+cards = Card.where(page=5, pageSize=250)
+# find set by code
+set = Set.find('base1')
+# filter sets by parameters
+sets = Set.where(q='legalities.standard:legal')
+# Get all Sets
+sets = Set.all()
+# Get all Types
+types = Type.all()
+# Get all Subtypes
+subtypes = Subtype.all()
+# Get all Supertypes
+supertypes = Supertype.all()
+# Get all Rarities
+rarities = Rarity.all()
 
 
-# pulls headers and ! into lists to be added to the database
-
-header_path = 'pokemon_analytics\data\data_headings.txt'
-help_pos = 26
-help = ""
-with open(header_path, 'r') as file:
-    for line in file:
-        # split line into two strings, one from the 0 position to the 26th, and the other from the 27th to the end
-        header = line[:help_pos]
-        help = line[help_pos:]
-        cleaned_header = header.strip()
+# pokemonTCG api tookin\
+RestClient.configure(TOKEN)

@@ -1,0 +1,47 @@
+Classes = {Card
+Set
+Type
+Supertype
+Subtype
+Rarity}
+
+Card = {
+    abilities
+artist
+ancientTrait
+attacks
+convertedRetreatCost
+evolvesFrom
+flavorText
+hp
+id
+images
+legalities
+regulationMark
+name
+nationalPokedexNumbers
+number
+rarity
+resistances
+retreatCost
+rules
+set
+subtypes
+supertype
+tcgplayer
+types
+weaknesses
+}
+
+Set = {
+    id
+images
+legalities
+name
+printedTotal
+ptcgoCode
+releaseDate
+series
+total
+updatedAt
+}
